@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Github, Linkedin, Mail, MessageSquare } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -19,8 +19,29 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic would go here
-    console.log("Form submitted:", formData);
+
+    try {
+      // Use your Formspree endpoint here:
+      const response = await fetch("https://formspree.io/f/mdkadkyd", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        // Formspree will capture anything you send in the POST body.
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("Something went wrong. Please try again later.");
+    }
   };
 
   const handleChange = (
@@ -46,6 +67,8 @@ export default function Contact() {
           <div className="grid gap-6 md:grid-cols-[2fr,1fr]">
             <Card className="p-6">
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Make sure each input has a "name" attribute 
+                    that corresponds to the data you want to send to Formspree */}
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
                   <Input
@@ -107,7 +130,7 @@ export default function Contact() {
               <h2 className="text-xl font-semibold mb-4">Connect With Me</h2>
               <div className="space-y-4">
                 <Link
-                  href="https://github.com"
+                  href="https://github.com/sinanaseri1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -116,7 +139,7 @@ export default function Contact() {
                   <span>GitHub</span>
                 </Link>
                 <Link
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/sina-n-a78409143/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -125,7 +148,7 @@ export default function Contact() {
                   <span>LinkedIn</span>
                 </Link>
                 <Link
-                  href="mailto:your.email@example.com"
+                  href="mailto:naseri.sina@hotmail.com"
                   className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <Mail className="h-5 w-5" />

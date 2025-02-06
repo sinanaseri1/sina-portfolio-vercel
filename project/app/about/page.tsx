@@ -3,7 +3,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Subscript as Javascript, Database, Cloud, GitBranch, Code2 } from "lucide-react";
+import {
+  Subscript as Javascript,
+  Database,
+  Cloud,
+  GitBranch,
+  Code2,
+} from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -32,7 +38,7 @@ const skills = {
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 }
+  transition: { duration: 0.5 },
 };
 
 const SkillSection = ({
@@ -91,17 +97,22 @@ export default function About() {
                 About Me
               </h1>
               <p className="text-lg text-muted-foreground">
-                I'm a passionate Software Engineer with a strong foundation in full-stack
-                development. My journey in tech has been driven by a desire to create
-                impactful solutions that solve real-world problems. I thrive in
-                challenging environments and am constantly learning new technologies to
-                stay at the forefront of software development.
+                I’m a software developer with a background in Physics from the
+                University of Nottingham, where I first explored programming
+                through MATLAB and Java. Over time, I transitioned into
+                full-stack development with JavaScript, Next.js, Node.js, and
+                MongoDB, building scalable web applications with modern tools
+                like Firebase and Tailwind CSS. Currently, I’m expanding my
+                skills through an intensive software development program,
+                working on real-world projects. Outside of coding, I bring the
+                same discipline and strategic mindset from my experience as a
+                regional table tennis champion into my development work.
               </p>
             </div>
           </motion.div>
-          
+
           <Separator className="my-8" />
-          
+
           <motion.h2
             initial="initial"
             whileInView="animate"
@@ -111,7 +122,7 @@ export default function About() {
           >
             Technical Expertise
           </motion.h2>
-          
+
           <div className="grid gap-6 md:grid-cols-2">
             <SkillSection
               title="Programming Languages & Frameworks"

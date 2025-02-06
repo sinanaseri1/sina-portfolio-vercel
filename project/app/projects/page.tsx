@@ -8,35 +8,43 @@ import Image from "next/image";
 const projects = [
   {
     title: "Revenge of a Samurai",
-    description: "An immersive JavaScript game that follows a samurai's journey through feudal Japan. Features include dynamic combat mechanics, character progression, and authentic Japanese art style.",
-    image: "https://images.unsplash.com/photo-1611071536600-36a9b80ac3a3?auto=format&fit=crop&q=80&w=800&h=400",
+    description:
+      "An immersive JavaScript game that follows a samurai's journey through feudal Japan. Features include dynamic combat mechanics, character progression, and authentic Japanese art style.",
+    image:
+      "samurai.png",
     technologies: ["JavaScript", "HTML5", "Tailwind CSS"],
-    demoUrl: "#",
-    githubUrl: "#",
+    demoUrl: "https://sinanaseri1.github.io/week3-project/",
+    githubUrl: "https://github.com/sinanaseri1/week3-project",
   },
   {
     title: "Quiz Website",
-    description: "An interactive quiz platform with real-time scoring, multiple categories, and a responsive design. Supports both multiple choice and true/false questions.",
-    image: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&q=80&w=800&h=400",
+    description:
+      "An interactive quiz platform with real-time scoring, multiple categories, and a responsive design. Supports both multiple choice and true/false questions.",
+    image:
+      "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&q=80&w=800&h=400",
     technologies: ["Tailwind CSS", "HTML5"],
-    demoUrl: "#",
-    githubUrl: "#",
+    demoUrl: "https://github.com/sinanaseri1/week2-project",
+    githubUrl: "https://sinanaseri1.github.io/week2-project/",
   },
   {
     title: "Table Tennis Hobby Site",
-    description: "A comprehensive resource for table tennis enthusiasts featuring training tips, equipment reviews, and tournament schedules.",
-    image: "https://images.unsplash.com/photo-1611251135345-18c56206b863?auto=format&fit=crop&q=80&w=800&h=400",
+    description:
+      "A comprehensive resource for table tennis enthusiasts featuring training tips, equipment reviews, and tournament schedules.",
+    image:
+      "https://images.unsplash.com/photo-1611251135345-18c56206b863?auto=format&fit=crop&q=80&w=800&h=400",
     technologies: ["HTML", "Tailwind CSS"],
-    demoUrl: "#",
-    githubUrl: "#",
+    demoUrl: "https://sinanaseri1.github.io/week1-project/",
+    githubUrl: "https://github.com/sinanaseri1/week1-project",
   },
   {
     title: "Weather Forecast App",
-    description: "A sleek weather application providing real-time forecasts, hourly updates, and detailed weather information using the OpenWeather API.",
-    image: "https://images.unsplash.com/photo-1561484930-998b6a7b22e8?auto=format&fit=crop&q=80&w=800&h=400",
+    description:
+      "A sleek weather application providing real-time forecasts, hourly updates, and detailed weather information using the OpenWeather API.",
+    image:
+      "https://images.unsplash.com/photo-1561484930-998b6a7b22e8?auto=format&fit=crop&q=80&w=800&h=400",
     technologies: ["Next.js", "OpenWeather API"],
-    demoUrl: "#",
-    githubUrl: "#",
+    demoUrl: "https://weather-app-six-kappa-71.vercel.app/",
+    githubUrl: "https://github.com/hali-27/Weather-App",
   },
 ];
 
@@ -50,13 +58,14 @@ function ProjectCard({
 }: (typeof projects)[0]) {
   return (
     <Card className="overflow-hidden flex flex-col">
-      <div className="relative h-48 w-full">
+      {/* Image container with overflow hidden */}
+      <div className="relative h-48 w-full overflow-hidden">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 ease-in-out hover:scale-110"
         />
       </div>
       <div className="p-6 flex flex-col flex-1">
@@ -72,13 +81,23 @@ function ProjectCard({
           </div>
           <div className="flex gap-3">
             <Button asChild variant="default" className="flex-1">
-              <Link href={demoUrl} target="_blank" rel="noopener noreferrer" className="gap-2">
+              <Link
+                href={demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gap-2"
+              >
                 <Globe className="h-4 w-4" />
                 Live Demo
               </Link>
             </Button>
             <Button asChild variant="outline" className="flex-1">
-              <Link href={githubUrl} target="_blank" rel="noopener noreferrer" className="gap-2">
+              <Link
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gap-2"
+              >
                 <Github className="h-4 w-4" />
                 Source Code
               </Link>
@@ -100,8 +119,9 @@ export default function Projects() {
               Projects
             </h1>
             <p className="text-lg text-muted-foreground">
-              A collection of my recent work and personal projects. Each project demonstrates
-              different aspects of my technical expertise and problem-solving abilities.
+              A collection of my recent work and personal projects. Each project
+              demonstrates different aspects of my technical expertise and
+              problem-solving abilities.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2">

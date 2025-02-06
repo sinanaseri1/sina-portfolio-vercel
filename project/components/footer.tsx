@@ -9,13 +9,13 @@ export function Footer() {
           Built with Next.js and Tailwind CSS. Deployed on Vercel.
         </p>
         <div className="flex gap-4">
-          <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <Link href="https://github.com/sinanaseri1" target="_blank" rel="noopener noreferrer">
             <Github className="h-5 w-5" />
           </Link>
-          <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+          <Link href="https://www.linkedin.com/in/sina-n-a78409143/" target="_blank" rel="noopener noreferrer">
             <Linkedin className="h-5 w-5" />
           </Link>
-          <Link href="mailto:your.email@example.com">
+          <Link href="mailto:naseri.sina@hotmail.com">
             <Mail className="h-5 w-5" />
           </Link>
         </div>
