@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="border-t">
       <div className="container flex flex-col items-center gap-4 py-8 md:flex-row md:justify-between">
         <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-          Built with Next.js and Tailwind CSS. Deployed on Vercel.
+          Built with Next.js and Tailwind CSS.
         </p>
         <div className="flex gap-4">
           <Link href="https://github.com/sinanaseri1" target="_blank" rel="noopener noreferrer">
