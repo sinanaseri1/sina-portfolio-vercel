@@ -7,11 +7,20 @@ import Image from "next/image";
 
 const projects = [
   {
+    title: "Social Media Site",
+    description:
+      "a social website using Next.js and Tailwind CSS, displaying social media posts (aka “social cards”)",
+    image: "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fi.ibb.co%2FySfvmkT%2Fmobile-Hand.png",
+    technologies: ["JavaScript", "HTML5", "Tailwind CSS", "Next.js"],
+    demoUrl: "https://week5project.vercel.app/",
+    githubUrl: "https://github.com/sinanaseri1/week5project",
+  },
+
+  {
     title: "Revenge of a Samurai",
     description:
       "An immersive JavaScript game that follows a samurai's journey through feudal Japan. Features include dynamic combat mechanics, character progression, and authentic Japanese art style.",
-    image:
-      "samurai.png",
+    image: "samurai.png",
     technologies: ["JavaScript", "HTML5", "Tailwind CSS"],
     demoUrl: "https://sinanaseri1.github.io/week3-project/",
     githubUrl: "https://github.com/sinanaseri1/week3-project",
@@ -23,8 +32,8 @@ const projects = [
     image:
       "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&q=80&w=800&h=400",
     technologies: ["Tailwind CSS", "HTML5"],
-    demoUrl: "https://github.com/sinanaseri1/week2-project",
-    githubUrl: "https://sinanaseri1.github.io/week2-project/",
+    demoUrl: "https://sinanaseri1.github.io/week2-project/",
+    githubUrl: "https://github.com/sinanaseri1/week2-project",
   },
   {
     title: "Table Tennis Hobby Site",

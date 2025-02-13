@@ -30,10 +30,11 @@ const skills = {
     "HTML5",
   ],
   database: ["MySQL", "MongoDB", "SQL", "Excel"],
-  cloud: ["AWS EC2", "AWS S3", "AWS RDS", "Render"],
+  cloud: ["AWS EC2", "AWS S3", "AWS RDS", "Render", "Supabase"],
   methodologies: ["Agile", "Test-Driven Development (TDD)"],
   tools: ["Spring Boot", "Kubernetes", "JUnit", "CI/CD", "Git", "Flutter"],
 };
+
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -97,16 +98,18 @@ export default function About() {
                 About Me
               </h1>
               <p className="text-lg text-muted-foreground">
-                I’m a software developer with a background in Physics from the
-                University of Nottingham, where I first explored programming
-                through MATLAB and Java. Over time, I transitioned into
-                full-stack development with JavaScript, Next.js, Node.js, and
-                MongoDB, building scalable web applications with modern tools
-                like Firebase and Tailwind CSS. Currently, I’m expanding my
-                skills through an intensive software development program,
-                working on real-world projects. Outside of coding, I bring the
-                same discipline and strategic mindset from my experience as a
-                regional table tennis champion into my development work.
+                I'm a software developer with a background in Physics from the
+                University of Nottingham, where I first discovered my love for
+                coding with MATLAB and Java. Over time, I moved into full-stack
+                development, working with JavaScript, Next.js, Node.js, and
+                MongoDB to build scalable web applications. I enjoy using modern
+                tools like Firebase, Supabase, and Tailwind CSS to bring
+                creative ideas to life. I even earned a regional table tennis
+                championship title—a testament to the discipline and strategic
+                thinking that I still apply to my work. When I'm not coding,
+                you'll likely find me either at the gym or practicing table
+                tennis in my spare time, always striving for balance between
+                mind and body.
               </p>
             </div>
           </motion.div>
