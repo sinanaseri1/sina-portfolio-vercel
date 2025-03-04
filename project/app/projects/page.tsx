@@ -9,8 +9,26 @@ const projects = [
   {
     title: "Social Media Site",
     description:
+      "ChitChat is a real-time messaging application built with Next.js and Socket.IO that enables users to connect, search for friends, and engage in private or group chats. It features a responsive interface with dark mode, account management, and instant notifications for a seamless communication experience.",
+    image: "chitchat.png",
+    technologies: [
+      "JavaScript",
+      "HTML5",
+      "Tailwind CSS",
+      "Next.js",
+      "Express.js",
+      "MongoDB",
+      "Socket.io",
+    ],
+    demoUrl: "https://capable-swan-50b68e.netlify.app/login",
+    githubUrl: "https://github.com/sinanaseri1/chitchat-backend",
+  },
+  {
+    title: "Social Media Site",
+    description:
       "a social website using Next.js and Tailwind CSS, displaying social media posts (aka “social cards”)",
-    image: "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fi.ibb.co%2FySfvmkT%2Fmobile-Hand.png",
+    image:
+      "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fi.ibb.co%2FySfvmkT%2Fmobile-Hand.png",
     technologies: ["JavaScript", "HTML5", "Tailwind CSS", "Next.js"],
     demoUrl: "https://week5project.vercel.app/",
     githubUrl: "https://github.com/sinanaseri1/week5project",
