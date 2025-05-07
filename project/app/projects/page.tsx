@@ -7,6 +7,20 @@ import Image from "next/image";
 
 const projects = [
   {
+    title: "Website Template For a Fitness App",
+    description:
+      "Developed a responsive and user-friendly website for a client's fitness app. Built with a focus on performance, modern UI, and seamless user experience.",
+    image: "pulsefit.png",
+    technologies: [
+      "JavaScript",
+      "HTML5",
+      "Tailwind CSS",
+      "Next.js",
+    ],
+    demoUrl: "https://pulse-power-site.vercel.app/",
+    githubUrl: "",
+  },
+  {
     title: "Social Media Site",
     description:
       "ChitChat is a real-time messaging application built with Next.js and Socket.IO that enables users to connect, search for friends, and engage in private or group chats. It features a responsive interface with dark mode, account management, and instant notifications for a seamless communication experience.",
