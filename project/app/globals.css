@@ -80,3 +80,32 @@
     @apply bg-background text-foreground;
   }
 }
+
+.bg-aurora {
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #4f46e5 0deg,
+    #9333ea 90deg,
+    #ec4899 180deg,
+    #f97316 270deg,
+    #4f46e5 360deg
+  );
+  animation: spin 18s linear infinite;
+  background-size: 400% 400%;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Subtle noise overlay (use a tiny noise PNG in public/noise.png) */
+.bg-noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/noise.png");
+  opacity: 0.05;
+  pointer-events: none;
+}
