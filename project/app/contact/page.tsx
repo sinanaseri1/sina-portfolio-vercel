@@ -6,77 +6,93 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Github, Linkedin, Mail, MessageSquare } from "lucide-react";
-import Link from "next/link";
+import { AlertCircle, CheckCircle2, Clock, Loader2, Send, ShieldCheck } from "lucide-react";
+
+// Relay endpoint. Submissions are forwarded by the form provider, so no
+// personal inbox address is exposed in the client bundle.
+const FORM_ENDPOINT = "https://formspree.io/f/mdkadkyd";
+
+type Status = "idle" | "submitting" | "success" | "error";
+
+const emptyForm = { name: "", email: "", subject: "", message: "", company: "" };
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(emptyForm);
+  const [status, setStatus] = useState<Status>("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // Honeypot: bots fill hidden fields, people don't.
+    if (formData.company) return;
+
+    setStatus("submitting");
 
     try {
-      // Use your Formspree endpoint here:
-      const response = await fetch("https://formspree.io/f/mdkadkyd", {
+      const { company: _honeypot, ...payload } = formData;
+
+      const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        // Formspree will capture anything you send in the POST body.
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
-      if (response.ok) {
-        alert("Message sent successfully!");
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      } else {
-        alert("Failed to send message. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error sending message:", error);
-      alert("Something went wrong. Please try again later.");
+      if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+
+      setFormData(emptyForm);
+      setStatus("success");
+    } catch {
+      setStatus("error");
     }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value } = event.target;
+    setFormData((previous) => ({ ...previous, [name]: value }));
+    if (status === "success" || status === "error") setStatus("idle");
   };
 
-  return (
-    <div className="container py-12">
-      <div className="max-w-[850px] mx-auto">
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Contact Me
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Have a question or want to work together? Feel free to reach out!
-            </p>
-          </div>
+  const isSubmitting = status === "submitting";
 
-          <div className="grid gap-6 md:grid-cols-[2fr,1fr]">
-            <Card className="p-6">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Make sure each input has a "name" attribute 
-                    that corresponds to the data you want to send to Formspree */}
+  return (
+    <div>
+      <section className="relative isolate overflow-hidden border-b">
+        <div className="aurora-field absolute inset-0 -z-10" aria-hidden="true" />
+        <div className="container max-w-3xl space-y-4 py-20 md:py-28">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Contact
+          </p>
+          <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+            Let&rsquo;s talk about your project.
+          </h1>
+          <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
+            Freelance work, collaborations or a technical question — the form
+            below is the way in. Tell me what you&rsquo;re building and
+            what&rsquo;s in the way.
+          </p>
+        </div>
+      </section>
+
+      <section className="container py-16 md:py-20">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+          <Card className="tile p-7 md:p-9">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate={false}>
+              <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
                   <Input
                     id="name"
                     name="name"
-                    placeholder="Your name"
+                    autoComplete="name"
+                    placeholder="How should I address you?"
                     value={formData.name}
                     onChange={handleChange}
+                    disabled={isSubmitting}
                     required
                   />
                 </div>
@@ -87,78 +103,126 @@ export default function Contact() {
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="your.email@example.com"
+                    autoComplete="email"
+                    inputMode="email"
+                    placeholder="you@company.com"
                     value={formData.email}
                     onChange={handleChange}
+                    disabled={isSubmitting}
                     required
                   />
                 </div>
+              </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    placeholder="What is this regarding?"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="subject">Subject</Label>
+                <Input
+                  id="subject"
+                  name="subject"
+                  placeholder="What is this regarding?"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  required
+                />
+              </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder="Your message..."
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    className="min-h-[150px]"
-                  />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="message">Message</Label>
+                <Textarea
+                  id="message"
+                  name="message"
+                  placeholder="A few sentences on the project, timeline and budget range is plenty to start."
+                  value={formData.message}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  required
+                  className="min-h-[180px] resize-y"
+                />
+              </div>
 
-                <Button type="submit" className="w-full">
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Send Message
-                </Button>
-              </form>
+              {/* Honeypot — hidden from people, tempting to bots. */}
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="company">Company (leave blank)</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.company}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <Button
+                type="submit"
+                size="lg"
+                className="h-12 w-full gap-2 rounded-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Sending…
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-4 w-4" />
+                    Send message
+                  </>
+                )}
+              </Button>
+
+              {/* Status is announced to screen readers as it changes. */}
+              <div aria-live="polite" className="min-h-[1.5rem]">
+                {status === "success" && (
+                  <p className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400">
+                    <CheckCircle2 className="h-4 w-4 shrink-0" />
+                    Message sent — thank you. You&rsquo;ll hear back shortly.
+                  </p>
+                )}
+                {status === "error" && (
+                  <p className="flex items-center gap-2 text-sm text-destructive">
+                    <AlertCircle className="h-4 w-4 shrink-0" />
+                    That didn&rsquo;t send. Please try again in a moment.
+                  </p>
+                )}
+              </div>
+            </form>
+          </Card>
+
+          <div className="space-y-5">
+            <Card className="tile p-7">
+              <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-accent-foreground">
+                <Clock className="h-5 w-5" />
+              </span>
+              <h2 className="mb-2 font-semibold tracking-tight">
+                Response time
+              </h2>
+              <p className="text-pretty leading-relaxed text-muted-foreground">
+                Most messages get a reply within two working days. Detailed
+                briefs may take a little longer — they get a proper answer
+                rather than a quick one.
+              </p>
             </Card>
 
-            <Card className="p-6">
-              <h2 className="text-xl font-semibold mb-4">Connect With Me</h2>
-              <div className="space-y-4">
-                <Link
-                  href="https://github.com/sinanaseri1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Github className="h-5 w-5" />
-                  <span>GitHub</span>
-                </Link>
-                <Link
-                  href="https://www.linkedin.com/in/sina-n-a78409143/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Linkedin className="h-5 w-5" />
-                  <span>LinkedIn</span>
-                </Link>
-                <Link
-                  href="mailto:naseri.sina@hotmail.com"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Mail className="h-5 w-5" />
-                  <span>Email</span>
-                </Link>
-              </div>
+            <Card className="tile p-7">
+              <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-accent-foreground">
+                <ShieldCheck className="h-5 w-5" />
+              </span>
+              <h2 className="mb-2 font-semibold tracking-tight">
+                Your details
+              </h2>
+              <p className="text-pretty leading-relaxed text-muted-foreground">
+                What you send is used only to reply to your enquiry. Nothing is
+                stored on this site, and nothing is passed to third parties for
+                marketing.
+              </p>
             </Card>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

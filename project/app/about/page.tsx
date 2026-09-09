@@ -1,160 +1,203 @@
-"use client";
-
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import {
-  Subscript as Javascript,
-  Database,
-  Cloud,
-  GitBranch,
-  Code2,
-} from "lucide-react";
+import { Cloud, Database, GitBranch, Code2, Workflow } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
-const skills = {
-  programming: [
-    "Java",
-    "MATLAB",
-    "JavaScript",
-    "Node.js",
-    "Next.js",
-    "ReactJS",
-    "JSX",
-    "Tailwind CSS",
-    "TypeScript",
-    "C#",
-    ".NET",
-    "Dart",
-    "HTML5",
-  ],
-  database: ["MySQL", "MongoDB", "SQL", "Excel"],
-  cloud: ["AWS EC2", "AWS S3", "AWS RDS", "Render", "Supabase"],
-  methodologies: ["Agile", "Test-Driven Development (TDD)"],
-  tools: ["Spring Boot", "Kubernetes", "JUnit", "CI/CD", "Git", "Flutter"],
-};
+const skillGroups = [
+  {
+    title: "Languages & Frameworks",
+    icon: Code2,
+    items: [
+      "TypeScript",
+      "JavaScript",
+      "React",
+      "Next.js",
+      "Node.js",
+      "Java",
+      "Spring Boot",
+      "C#",
+      ".NET",
+      "Dart",
+      "Flutter",
+      "MATLAB",
+      "Tailwind CSS",
+      "HTML5",
+    ],
+    span: "sm:col-span-2",
+  },
+  {
+    title: "Data & Persistence",
+    icon: Database,
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Supabase", "SQL"],
+    span: "",
+  },
+  {
+    title: "Cloud & Deployment",
+    icon: Cloud,
+    items: ["AWS EC2", "AWS S3", "AWS RDS", "Vercel", "Render", "Kubernetes"],
+    span: "",
+  },
+  {
+    title: "Tooling",
+    icon: GitBranch,
+    items: ["Git", "CI/CD", "JUnit", "Jest", "Docker"],
+    span: "",
+  },
+  {
+    title: "Ways of Working",
+    icon: Workflow,
+    items: [
+      "Agile",
+      "Test-Driven Development",
+      "Code review",
+      "Pair programming",
+    ],
+    span: "",
+  },
+];
 
-
-const fadeIn = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
-};
-
-const SkillSection = ({
-  title,
-  items,
-  icon: Icon,
-}: {
-  title: string;
-  items: string[];
-  icon: React.ElementType;
-}) => (
-  <motion.div
-    initial="initial"
-    whileInView="animate"
-    viewport={{ once: true }}
-    variants={fadeIn}
-  >
-    <Card className="p-6">
-      <div className="flex items-center gap-2 mb-4">
-        <Icon className="h-5 w-5" />
-        <h3 className="text-lg font-semibold">{title}</h3>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {items.map((item) => (
-          <Badge key={item} variant="secondary">
-            {item}
-          </Badge>
-        ))}
-      </div>
-    </Card>
-  </motion.div>
-);
+const principles = [
+  {
+    heading: "Start from the constraint",
+    body: "A grounding in the physical sciences leaves you with one reflex: find what actually limits the system before touching anything else. It applies just as well to a slow query as to a mechanics problem.",
+  },
+  {
+    heading: "Make it legible",
+    body: "Code is read far more often than it is written, and the same is true of an interface. Both should explain themselves without a footnote.",
+  },
+  {
+    heading: "Ship, then measure",
+    body: "Small releases with real feedback beat long stretches of speculative building. Test coverage and instrumentation are what make that safe.",
+  },
+];
 
 export default function About() {
   return (
-    <div className="container py-12">
-      <div className="max-w-[850px] mx-auto">
-        <div className="space-y-6">
-          <motion.div
-            initial="initial"
-            animate="animate"
-            variants={fadeIn}
-            className="flex flex-col md:flex-row gap-8 items-center"
+    <div>
+      <section className="relative isolate overflow-hidden border-b">
+        <div className="aurora-field absolute inset-0 -z-10" aria-hidden="true" />
+
+        <div className="container flex flex-col items-start gap-10 py-20 md:flex-row md:items-center md:py-28">
+          <div
+            className="animate-fade-up shrink-0"
+            style={{ animationDelay: "0ms" }}
           >
-            <div className="relative w-48 h-48 rounded-full overflow-hidden">
+            <div className="relative h-32 w-32 overflow-hidden rounded-2xl border md:h-40 md:w-40">
               <Image
-                src="sinaheadshot.jpg"
-                alt="Profile picture"
+                src="/avatar.svg"
+                alt=""
                 fill
+                priority
+                sizes="160px"
                 className="object-cover"
-                sizes="200px"
               />
             </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-                About Me
-              </h1>
-              <p className="text-lg text-muted-foreground">
-                I'm a software developer with a background in Physics from the
-                University of Nottingham, where I first discovered my love for
-                coding with MATLAB and Java. Over time, I moved into full-stack
-                development, working with JavaScript, Next.js, Node.js, and
-                MongoDB to build scalable web applications. I enjoy using modern
-                tools like Firebase, Supabase, and Tailwind CSS to bring
-                creative ideas to life. I even earned a regional table tennis
-                championship title—a testament to the discipline and strategic
-                thinking that I still apply to my work. When I'm not coding,
-                you'll likely find me either at the gym or practicing table
-                tennis in my spare time, always striving for balance between
-                mind and body.
-              </p>
-            </div>
-          </motion.div>
+          </div>
 
-          <Separator className="my-8" />
-
-          <motion.h2
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="text-2xl font-semibold tracking-tight"
-          >
-            Technical Expertise
-          </motion.h2>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            <SkillSection
-              title="Programming Languages & Frameworks"
-              items={skills.programming}
-              icon={Code2}
-            />
-            <SkillSection
-              title="Database Management"
-              items={skills.database}
-              icon={Database}
-            />
-            <SkillSection
-              title="Cloud Services"
-              items={skills.cloud}
-              icon={Cloud}
-            />
-            <SkillSection
-              title="Development Tools"
-              items={skills.tools}
-              icon={GitBranch}
-            />
-            <SkillSection
-              title="Development Methodologies"
-              items={skills.methodologies}
-              icon={Javascript}
-            />
+          <div className="max-w-2xl space-y-5">
+            <p
+              className="animate-fade-up font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground"
+              style={{ animationDelay: "80ms" }}
+            >
+              About
+            </p>
+            <h1
+              className="animate-fade-up text-balance text-4xl font-semibold tracking-tight sm:text-5xl"
+              style={{ animationDelay: "140ms" }}
+            >
+              Developer &amp; Science Specialist
+            </h1>
+            <p
+              className="animate-fade-up text-pretty text-lg leading-relaxed text-muted-foreground"
+              style={{ animationDelay: "200ms" }}
+            >
+              Full-stack developer with a foundational background in the physical
+              sciences and analytical modelling.
+            </p>
+            <p
+              className="animate-fade-up text-pretty text-lg leading-relaxed text-muted-foreground"
+              style={{ animationDelay: "260ms" }}
+            >
+              Specialising in modern web ecosystems, component-driven interfaces,
+              and scalable backend architecture. My approach prioritises clean
+              system design, type safety, and maintainable codebases across
+              TypeScript, React, and server-side runtimes.
+            </p>
+            <p
+              className="animate-fade-up text-pretty text-lg leading-relaxed text-muted-foreground"
+              style={{ animationDelay: "320ms" }}
+            >
+              Outside of engineering, my focus centres on competitive athletics,
+              continuous technical learning, and exploring complex systems.
+            </p>
           </div>
         </div>
+      </section>
+
+      {/* --------------------------------------------------------- principles */}
+      <section className="container py-20 md:py-24">
+        <div className="grid gap-4 md:grid-cols-3">
+          {principles.map(({ heading, body }, index) => (
+            <article
+              key={heading}
+              className="tile animate-fade-up p-7"
+              style={{ animationDelay: `${400 + index * 80}ms` }}
+            >
+              <span className="mb-4 block font-mono text-xs text-muted-foreground">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h2 className="mb-2 text-lg font-semibold tracking-tight">
+                {heading}
+              </h2>
+              <p className="text-pretty leading-relaxed text-muted-foreground">
+                {body}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <div className="container">
+        <hr className="hairline" />
       </div>
+
+      {/* ------------------------------------------------------------- skills */}
+      <section className="container py-20 md:py-24">
+        <div className="mb-10 max-w-2xl space-y-3">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Toolkit
+          </p>
+          <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+            Technical expertise
+          </h2>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {skillGroups.map(({ title, icon: Icon, items, span }) => (
+            <div
+              key={title}
+              className={`tile tile-interactive p-6 ${span}`}
+            >
+              <div className="mb-4 flex items-center gap-2.5">
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+                  <Icon className="h-4 w-4" />
+                </span>
+                <h3 className="font-semibold tracking-tight">{title}</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {items.map((item) => (
+                  <Badge
+                    key={item}
+                    variant="secondary"
+                    className="rounded-md font-mono text-[11px] font-normal"
+                  >
+                    {item}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
