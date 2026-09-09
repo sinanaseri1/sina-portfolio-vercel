@@ -2,8 +2,12 @@
 const nextConfig = {
   output: 'export',
   eslint: {
-    ignoreDuringBuilds: true,
+    // Lint runs as part of the build; it currently passes clean.
+    dirs: ['app', 'components', 'lib', 'hooks'],
   },
+  reactStrictMode: true,
+  poweredByHeader: false,
+  trailingSlash: true,
   images: { unoptimized: true },
 };
 

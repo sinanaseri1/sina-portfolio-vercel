@@ -1,0 +1,3 @@
+# Indexing is intentionally disabled for this site.
+User-agent: *
+Disallow: /

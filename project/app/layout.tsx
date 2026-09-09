@@ -1,40 +1,42 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Sina Naseri — Software Developer",
+  title: "Developer & Science Specialist",
   description:
-    "Official website of Sina Naseri, showcasing software engineering projects, skills, and achievements.",
-  openGraph: {
-    title: "Sina Naseri — Software Developer",
-    description:
-      "Official website of Sina Naseri, showcasing software engineering projects, skills, and achievements.",
-    url: "https://sinanaseri.com",
-    siteName: "Sina Naseri",
-    images: [
-      {
-        url: "/meta/og-image.jpg", // Replace with your actual OG image path
-        width: 1200,
-        height: 630,
-        alt: "Sina Naseri Website Banner",
-      },
-    ],
-    type: "website",
-    locale: "en_US",
+    "A portfolio of full-stack web engineering work — interfaces, real-time apps, and interactive experiences.",
+  // No author, creator, publisher or canonical identity fields: this site is
+  // deliberately not tied to a named individual.
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-snippet": 0,
+      "max-image-preview": "none",
+      "max-video-preview": 0,
+    },
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Sina Naseri — Software Developer",
-    description:
-      "Official website of Sina Naseri, showcasing software engineering projects, skills, and achievements.",
-    images: ["/meta/og-image.jpg"], // Replace with your actual Twitter share image path
-  },
+  referrer: "strict-origin-when-cross-origin",
 };
 
 export default function RootLayout({
@@ -43,20 +45,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en-GB" suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${mono.variable} font-sans bg-background`}
+      >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {/* This wrapper ensures the page is at least full height */}
-          <div className="relative min-h-screen flex flex-col">
-            {/* Your navigation at the top (full width by default) */}
+          <div className="relative flex min-h-screen flex-col">
             <Navigation />
-
-            {/* Main content area, centered horizontally */}
-            <main className="grow">
-              <div className="container mx-auto px-4 py-8">{children}</div>
-            </main>
-
-            {/* Your footer at the bottom (full width by default) */}
+            <main className="grow">{children}</main>
             <Footer />
           </div>
         </ThemeProvider>
